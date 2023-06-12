@@ -1,22 +1,37 @@
-export const checkEmail = (req ,res,next) =>{
+import { captureRejections } from "stream";
+
+export const checkpin=async(req,res,next)=>{
     try{
-        const{email}=req.body;
-        if(!email) return res.send("email is required in middleware");
-        next();
+        const {userId,pin} =req.body;
+        if(!userId)return res.send("UserId is required in middleware");
+        if(!pin) return res.send("pin is required in middleware");
+
+
+        const response =await Users.find({userId}).exec();
+        if(user.pin==current.pin){
+            next()
+        }
+        else{
+            return req.send("pin not matched");
+        }
 
     }
+
+
     catch(error){
-        res.send(error);
+        res.send(error)
     }
- }
+}
 
 
- export const checkname =(req ,res,next)=>{
-    try{
-        
 
-    }
-    catch(error){
-        res.send(error);
-    }
- }
+
+
+
+
+
+
+
+
+
+
