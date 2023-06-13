@@ -22,8 +22,6 @@ export const checkpin=async(req,res,next)=>{
         }
 
     }
-
-
     catch(error){
         res.send(error)
     }
