@@ -4,7 +4,7 @@ import encrypt from 'encryptjs';
 
 export const register = async(req,res) =>{
     try{
-        const {Username,Useremail,UserPassword,Userconfirmpassword,Userpin,Userpancard,Useraddress} = req.body;
+        const {Username,Useremail,UserPassword,Userconfirmpassword,Userpin,Userpancard,Useraddress,Usernumber} = req.body;
         if(!Username) return res.send("Username is required");
         if(!Useremail) return res.send("Useremail is required");
         if(!UserPassword) return res.send("UserPassword is required");
@@ -12,6 +12,8 @@ export const register = async(req,res) =>{
         if(!Userpin) return res.send("Userpin is required");
         if(!Userpancard) return res.send("Userpancard is required");
         if(!Useraddress) return res.send("Useraddress is required");
+        if(!Usernumber) return res.send("Usernumber is required");
+
 
             
         if(UserPassword.length<=8){
@@ -48,6 +50,7 @@ export const register = async(req,res) =>{
             pin:Userpin,
             address:Useraddress,
             pancard:Userpancard,
+            number:Usernumber,
             password:cipherText,
             pin:cipherTextpin
         });
@@ -60,4 +63,27 @@ catch (error){
 }
 
 
+}
+
+
+export const changenumber =async(req,res)=>{
+    try{
+
+        const{_id,Usernumber} =req.body;
+        if (!_id,Usernumber) return res.send("-id is required");
+        if(!Usernumber)return res.send("number is required");
+        const response = await Usernumber.find({_id}).exec();
+
+        console.log(response)
+
+        if(!response.length) return res.send("user not found here")
+         const update=await Users.findOneAndUpdate({_id},{Usernumber}).exec();
+
+         await update .save();
+         return res.send("number updates");
+
+    }
+    catch(error){
+        return res.send(error);
+    }
 }
