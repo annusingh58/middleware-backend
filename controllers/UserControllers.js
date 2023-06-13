@@ -70,17 +70,31 @@ export const changenumber =async(req,res)=>{
     try{
 
         const{_id,Usernumber} =req.body;
-        if (!_id,Usernumber) return res.send("-id is required");
-        if(!Usernumber)return res.send("number is required");
-        const response = await Usernumber.find({_id}).exec();
+        if (!_id,Usernumber) return res.send("user id is required");
+        if(!Usernumber)return res.send("user number is required");
 
-        console.log(response)
+         const data=await Users.findOneAndUpdate({_id},{Usernumber}).exec();
 
-        if(!response.length) return res.send("user not found here")
-         const update=await Users.findOneAndUpdate({_id},{Usernumber}).exec();
-
-         await update .save();
+         await data .save();
          return res.send("number updates");
+
+    }
+    catch(error){
+        return res.send(error);
+    }
+}
+
+ 
+export const changeaddress =async(req,res)=>{
+    try{
+        const {_id,Useraddress}=req.body;
+        if(!_id) return res.send("user id is required");
+        if(!Useraddress) return res.send("user address is required");
+         const data=await Users.findOneAndUpdate({_id},{Useraddress}).exec();
+
+         await data.save();
+         return res.send("updated new address")
+
 
     }
     catch(error){
