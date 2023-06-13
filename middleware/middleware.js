@@ -11,7 +11,7 @@ export const checkpin=async(req,res,next)=>{
         if(!response.length) return res.send("User not found");
         
         var scretkey="pin";
-        var decipher=encrypt.decrypt(response[0].pin,scretkey,256)
+        var decipher=encrypt.decrypt(pin,scretkey,256)
         
         
         if(decipher==pin){

@@ -66,17 +66,38 @@ catch (error){
 }
 
 
+export const changename =async(req,res)=>{
+    try{
+
+        const{_id,Username} =req.body;
+        if (!_id) return res.send("user id is required");
+        if(!Username)return res.send("user name is required");
+
+         const data=await Users.findOneAndUpdate({_id},{name:Username}).exec();
+
+         await data .save();
+         return res.send("name updated");
+
+    }
+    catch(error){
+        return res.send(error);
+    }
+}
+
+
+
+
 export const changenumber =async(req,res)=>{
     try{
 
         const{_id,Usernumber} =req.body;
-        if (!_id,Usernumber) return res.send("user id is required");
+        if (!_id) return res.send("user id is required");
         if(!Usernumber)return res.send("user number is required");
 
-         const data=await Users.findOneAndUpdate({_id},{Usernumber}).exec();
+         const data=await Users.findOneAndUpdate({_id},{number:Usernumber}).exec();
 
          await data .save();
-         return res.send("number updates");
+         return res.send("number update");
 
     }
     catch(error){
@@ -90,11 +111,29 @@ export const changeaddress =async(req,res)=>{
         const {_id,Useraddress}=req.body;
         if(!_id) return res.send("user id is required");
         if(!Useraddress) return res.send("user address is required");
-         const data=await Users.findOneAndUpdate({_id},{Useraddress}).exec();
+         const data=await Users.findOneAndUpdate({_id},{address:Useraddress}).exec();
 
          await data.save();
          return res.send("updated new address")
 
+
+    }
+    catch(error){
+        return res.send(error);
+    }
+}
+
+export const changepancard =async(req,res)=>{
+    try{
+
+        const{_id,Userpancard} =req.body;
+        if (!_id) return res.send("user id is required");
+        if(!Userpancard)return res.send("Userpancard is required");
+
+         const data=await Users.findOneAndUpdate({_id},{pancard:Userpancard}).exec();
+
+         await data .save();
+         return res.send("pancard update");
 
     }
     catch(error){
