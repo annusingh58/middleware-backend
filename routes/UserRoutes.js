@@ -8,10 +8,10 @@ const router = express.Router();
 
 router.post('/register',register)
 router.post('/checkpin',checkpin)
-router.post('/changenumber',changenumber);
-router.post('/changeaddress',changeaddress);
-router.post('/changepancard',changepancard);
-router.post('/changename',changename)
+router.post('/changenumber',checkpin,changenumber);
+router.post('/changeaddress',checkpin,changeaddress);
+router.post('/changepancard',checkpin,changepancard);
+router.post('/changename',checkpin,changename)
 
 
 

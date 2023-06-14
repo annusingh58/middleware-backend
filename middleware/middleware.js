@@ -1,5 +1,5 @@
-import encrypt from"encryptjs";
-
+import encrypt from "encryptjs";
+import Users from '../modals/user.js'
 export const checkpin=async(req,res,next)=>{
     try{
         const {email,pin} =req.body;
@@ -8,17 +8,19 @@ export const checkpin=async(req,res,next)=>{
 
 
         const response =await Users.find({email}).exec();
+                // console.log(response)
+
         if(!response.length) return res.send("User not found");
         
-        var scretkey="pin";
-        var decipher=encrypt.decrypt(pin,scretkey,256)
+        var scretkey="kundu";
+        var decipher=encrypt.decrypt(response[0].pin,scretkey,256);
+        console.log(decipher,"decipher ");
         
-        
-        if(decipher==pin){
-            next()
+        if(decipher===pin){
+            next();
         }
         else{
-            return req.send("pin not matched");
+            return res.send("pin not matched");
         }
 
     }
